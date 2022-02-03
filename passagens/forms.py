@@ -2,6 +2,7 @@ from django import forms
 from tempus_dominus.widgets import DatePicker
 from datetime import datetime
 from passagens.classe_viagem import tipos_de_classe
+from passagens.validation import *
 
 class PassagemForms(forms.Form):
     origem = forms.CharField(label='Origem', max_length=100)
@@ -17,3 +18,10 @@ class PassagemForms(forms.Form):
         required=False
     )
     email = forms.EmailField(label='Email', max_length=150)
+
+    def clean(self):
+        origem = self.cleaned_data.get('origem')
+        destino = self.cleaned_data.get('destino')
+        lista_erros = {}
+
+        return self.cleaned_data
